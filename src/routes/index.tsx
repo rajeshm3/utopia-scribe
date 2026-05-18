@@ -17,7 +17,16 @@ type Outputs = {
 };
 
 const STORAGE_KEY = "studio-content-agent:last-output";
+const HISTORY_KEY = "studio-content-agent:history";
+const HISTORY_LIMIT = 5;
 const MIN_TRANSCRIPT_LENGTH = 100;
+
+type HistoryEntry = {
+  id: string;
+  snippet: string;
+  timestamp: number;
+  outputs: Outputs;
+};
 
 function Index() {
   const generate = useServerFn(generateContent);
@@ -25,6 +34,16 @@ function Index() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [outputs, setOutputs] = useState<Outputs | null>(null);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (raw) setHistory(JSON.parse(raw) as HistoryEntry[]);
+    } catch {
+      // ignore
+    }
+  }, []);
 
   useEffect(() => {
     if (!transcript.trim()) {
@@ -57,6 +76,21 @@ function Index() {
       } catch {
         // ignore
       }
+      const entry: HistoryEntry = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        snippet: transcript.trim().slice(0, 60),
+        timestamp: Date.now(),
+        outputs: result,
+      };
+      setHistory((prev) => {
+        const next = [entry, ...prev].slice(0, HISTORY_LIMIT);
+        try {
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+        } catch {
+          // ignore
+        }
+        return next;
+      });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
     } finally {
@@ -140,8 +174,57 @@ function Index() {
         <section className="mt-5">
           <JsonOutput outputs={outputs} loading={loading} />
         </section>
+
+        <section className="mt-5">
+          <GenerationHistory
+            history={history}
+            onSelect={(entry) => {
+              setOutputs(entry.outputs);
+              setError(null);
+            }}
+          />
+        </section>
       </div>
     </main>
+  );
+}
+
+function GenerationHistory({
+  history,
+  onSelect,
+}: {
+  history: HistoryEntry[];
+  onSelect: (entry: HistoryEntry) => void;
+}) {
+  return (
+    <article className="rounded-2xl border border-border bg-card p-5">
+      <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+        Generation History
+      </h2>
+      {history.length === 0 ? (
+        <p className="mt-3 text-sm text-muted-foreground">No generations yet.</p>
+      ) : (
+        <ul className="mt-3 divide-y divide-border">
+          {history.map((entry) => (
+            <li key={entry.id}>
+              <button
+                type="button"
+                onClick={() => onSelect(entry)}
+                className="flex w-full items-center justify-between gap-4 py-3 text-left hover:opacity-80"
+              >
+                <span className="truncate text-sm text-foreground/90">
+                  {entry.snippet}
+                  {entry.snippet.length >= 60 ? "…" : ""}
+                </span>
+                <span className="shrink-0 text-xs text-muted-foreground">
+                  {new Date(entry.timestamp).toLocaleString()}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </article>
   );
 }
 
