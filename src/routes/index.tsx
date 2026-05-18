@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Copy, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +16,9 @@ type Outputs = {
   press_angle: string;
 };
 
+const STORAGE_KEY = "studio-content-agent:last-output";
+const MIN_TRANSCRIPT_LENGTH = 100;
+
 function Index() {
   const generate = useServerFn(generateContent);
   const [transcript, setTranscript] = useState("");
@@ -23,14 +26,34 @@ function Index() {
   const [error, setError] = useState<string | null>(null);
   const [outputs, setOutputs] = useState<Outputs | null>(null);
 
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) setOutputs(JSON.parse(raw) as Outputs);
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const handleGenerate = async () => {
     if (!transcript.trim() || loading) return;
+    if (transcript.trim().length < MIN_TRANSCRIPT_LENGTH) {
+      setError(
+        "Please paste a fuller transcript - the agent needs meeting context to produce accurate content.",
+      );
+      return;
+    }
     setLoading(true);
     setError(null);
     setOutputs(null);
     try {
       const result = await generate({ data: { transcript: transcript.trim() } });
       setOutputs(result);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+      } catch {
+        // ignore
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
     } finally {

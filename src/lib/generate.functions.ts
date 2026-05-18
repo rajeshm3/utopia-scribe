@@ -11,6 +11,10 @@ followup_email: A personalised follow-up email to the key attendee. Subject line
 
 press_angle: One sentence. Specific enough for a journalist to write a story from. Not a summary of the meeting.
 
+Only use information explicitly stated in the transcript. Do not invent, assume, or extrapolate any facts, names, numbers, or events that are not directly mentioned. If the transcript does not contain enough information to write a specific accurate output, say so clearly in that output field instead of making something up.
+
+Every specific claim in the LinkedIn post, email, and press angle MUST be traceable to something said in the transcript.
+
 Return only valid JSON with these three keys. No other text.`;
 
 export const generateContent = createServerFn({ method: "POST" })
