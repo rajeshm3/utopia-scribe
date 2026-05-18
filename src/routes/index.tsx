@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,7 +35,7 @@ function Index() {
   const [error, setError] = useState<string | null>(null);
   const [outputs, setOutputs] = useState<Outputs | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
-  const [restoring, setRestoring] = useState(false);
+  const restoringRef = useRef(false);
 
   useEffect(() => {
     try {
@@ -47,8 +47,8 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    if (restoring) {
-      setRestoring(false);
+    if (restoringRef.current) {
+      restoringRef.current = false;
       return;
     }
     if (!transcript.trim()) {
@@ -60,7 +60,7 @@ function Index() {
         // ignore
       }
     }
-  }, [transcript, restoring]);
+  }, [transcript]);
 
   const handleGenerate = async () => {
     if (!transcript.trim() || loading) return;
@@ -184,7 +184,7 @@ function Index() {
           <GenerationHistory
             history={history}
             onSelect={(entry) => {
-              setRestoring(true);
+              restoringRef.current = true;
               setTranscript("");
               setOutputs(entry.outputs);
               setError(null);
