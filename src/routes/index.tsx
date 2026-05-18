@@ -92,9 +92,6 @@ function Index() {
           <label htmlFor="transcript" className="text-sm font-medium">
             Paste Granola transcript here
           </label>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Paste Granola transcripts from Utopia co-build sessions only. The agent does not verify input type — unrelated content will produce off-brand output.
-          </p>
           <Textarea
             id="transcript"
             value={transcript}
