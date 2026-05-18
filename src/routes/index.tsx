@@ -69,7 +69,7 @@ function Index() {
       <div className="mx-auto max-w-4xl px-6 py-12 md:py-16">
         <header className="mb-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+            <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
             Utopia Studio
           </div>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
@@ -80,8 +80,8 @@ function Index() {
           </p>
         </header>
 
-        <div className="mb-8 -mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-xs text-foreground/80">
-          <span><span className="font-semibold text-primary">Operator:</span> Marketing &amp; Events team</span>
+        <div className="mb-8 -mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
+          <span><span className="font-semibold text-foreground">Operator:</span> Marketing &amp; Events team</span>
           <span className="text-muted-foreground">·</span>
           <span>Replaces manual transcript reading and content writing</span>
           <span className="text-muted-foreground">·</span>
@@ -97,7 +97,7 @@ function Index() {
             value={transcript}
             onChange={(e) => setTranscript(e.target.value)}
             placeholder="Paste the full meeting transcript…"
-            className="mt-3 min-h-[220px] resize-y border-border bg-background/50 text-sm leading-relaxed focus-visible:ring-primary"
+            className="mt-3 min-h-[220px] resize-y border-border bg-background text-sm leading-relaxed focus-visible:ring-ring"
             disabled={loading}
           />
           <div className="mt-4 flex items-center justify-between gap-3">
@@ -107,7 +107,7 @@ function Index() {
             <Button
               onClick={handleGenerate}
               disabled={loading || !transcript.trim()}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-[#FAFAFA] text-[#171717] hover:bg-[#FAFAFA]/90"
               size="lg"
             >
               {loading ? (
@@ -180,7 +180,7 @@ function OutputCard({
           size="sm"
           onClick={handleCopy}
           disabled={!content}
-          className="h-8 gap-1.5 text-xs hover:bg-primary/10 hover:text-primary"
+          className="h-8 gap-1.5 text-xs hover:bg-muted hover:text-foreground"
         >
           {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? "Copied" : "Copy"}
@@ -201,7 +201,7 @@ function OutputCard({
       </div>
       <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">
         <span className="text-[10px] uppercase tracking-wider text-muted-foreground">LAUNCH Stage</span>
-        <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-medium text-primary">
+        <span className="rounded-full bg-[#2A2A2A] px-2 py-0.5 text-[11px] font-medium text-[#A3A3A3]">
           {stage}
         </span>
       </div>
@@ -240,13 +240,13 @@ function JsonOutput({ outputs, loading }: { outputs: Outputs | null; loading: bo
           size="sm"
           onClick={handleCopy}
           disabled={!outputs}
-          className="h-8 gap-1.5 text-xs hover:bg-primary/10 hover:text-primary"
+          className="h-8 gap-1.5 text-xs hover:bg-muted hover:text-foreground"
         >
           {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? "Copied" : "Copy JSON"}
         </Button>
       </div>
-      <pre className="mt-3 max-h-96 overflow-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-xs leading-relaxed text-foreground/90">
+      <pre className="mt-3 max-h-96 overflow-auto rounded-lg border border-border bg-[#141414] p-4 font-mono text-xs leading-relaxed text-foreground/90">
         {loading ? "Generating…" : json}
       </pre>
     </article>
