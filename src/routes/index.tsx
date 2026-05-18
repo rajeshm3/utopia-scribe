@@ -80,11 +80,11 @@ function Index() {
           </p>
         </header>
 
-        <div className="mb-8 -mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
-          <span><span className="font-semibold text-foreground">Operator:</span> Marketing &amp; Events team</span>
-          <span className="text-muted-foreground">·</span>
+        <div className="mb-8 -mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-border bg-background px-4 py-3 text-xs text-[#A3A3A3]">
+          <span><span className="font-medium">Operator:</span> Marketing &amp; Events team</span>
+          <span>·</span>
           <span>Replaces manual transcript reading and content writing</span>
-          <span className="text-muted-foreground">·</span>
+          <span>·</span>
           <span>Maps to Utopia LAUNCH framework</span>
         </div>
 
