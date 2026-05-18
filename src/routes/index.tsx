@@ -102,6 +102,10 @@ function Index() {
           <OutputCard title="Follow-up Email" content={outputs?.followup_email ?? ""} loading={loading} />
           <OutputCard title="Press Angle" content={outputs?.press_angle ?? ""} loading={loading} />
         </section>
+
+        <section className="mt-5">
+          <JsonOutput outputs={outputs} loading={loading} />
+        </section>
       </div>
     </main>
   );
@@ -159,6 +163,49 @@ function OutputCard({
           <span className="text-muted-foreground">Output will appear here.</span>
         )}
       </div>
+    </article>
+  );
+}
+
+function JsonOutput({ outputs, loading }: { outputs: Outputs | null; loading: boolean }) {
+  const [copied, setCopied] = useState(false);
+  const json = JSON.stringify(
+    outputs ?? { linkedin_post: "", followup_email: "", press_angle: "" },
+    null,
+    2,
+  );
+
+  const handleCopy = async () => {
+    if (!outputs) return;
+    try {
+      await navigator.clipboard.writeText(json);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <article className="rounded-2xl border border-border bg-card p-5">
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          JSON Output
+        </h2>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleCopy}
+          disabled={!outputs}
+          className="h-8 gap-1.5 text-xs hover:bg-primary/10 hover:text-primary"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? "Copied" : "Copy JSON"}
+        </Button>
+      </div>
+      <pre className="mt-3 max-h-96 overflow-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-xs leading-relaxed text-foreground/90">
+        {loading ? "Generating…" : json}
+      </pre>
     </article>
   );
 }
