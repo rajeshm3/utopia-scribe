@@ -76,10 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Turn Granola transcripts into LinkedIn posts, follow-up emails, and press angles for Utopia Studio." },
       { name: "author", content: "Utopia Studio" },
       { property: "og:title", content: "Studio Content Agent" },
-      { property: "og:description", content: "Turn Granola transcripts into publish-ready content." },
+      { property: "og:description", content: "Turn Granola transcripts into LinkedIn posts, follow-up emails, and press angles for Utopia Studio." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Studio Content Agent" },
+      { name: "twitter:description", content: "Turn Granola transcripts into LinkedIn posts, follow-up emails, and press angles for Utopia Studio." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1a273d57-cf6b-43de-8c25-183b5a7a9be1/id-preview-77615690--95316c5f-37bc-4196-9f3e-255ebdd02f70.lovable.app-1779111474012.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1a273d57-cf6b-43de-8c25-183b5a7a9be1/id-preview-77615690--95316c5f-37bc-4196-9f3e-255ebdd02f70.lovable.app-1779111474012.png" },
     ],
     links: [
       {
