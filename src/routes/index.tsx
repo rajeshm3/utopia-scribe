@@ -184,7 +184,7 @@ function Index() {
           <GenerationHistory
             history={history}
             onSelect={(entry) => {
-              setRestoring(true);
+              restoringRef.current = true;
               setTranscript("");
               setOutputs(entry.outputs);
               setError(null);
