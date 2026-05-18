@@ -27,13 +27,16 @@ function Index() {
   const [outputs, setOutputs] = useState<Outputs | null>(null);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setOutputs(JSON.parse(raw) as Outputs);
-    } catch {
-      // ignore
+    if (!transcript.trim()) {
+      setOutputs(null);
+      setError(null);
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // ignore
+      }
     }
-  }, []);
+  }, [transcript]);
 
   const handleGenerate = async () => {
     if (!transcript.trim() || loading) return;
