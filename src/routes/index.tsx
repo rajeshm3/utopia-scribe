@@ -35,6 +35,7 @@ function Index() {
   const [error, setError] = useState<string | null>(null);
   const [outputs, setOutputs] = useState<Outputs | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [restoring, setRestoring] = useState(false);
 
   useEffect(() => {
     try {
@@ -46,6 +47,10 @@ function Index() {
   }, []);
 
   useEffect(() => {
+    if (restoring) {
+      setRestoring(false);
+      return;
+    }
     if (!transcript.trim()) {
       setOutputs(null);
       setError(null);
@@ -55,7 +60,7 @@ function Index() {
         // ignore
       }
     }
-  }, [transcript]);
+  }, [transcript, restoring]);
 
   const handleGenerate = async () => {
     if (!transcript.trim() || loading) return;
@@ -179,6 +184,8 @@ function Index() {
           <GenerationHistory
             history={history}
             onSelect={(entry) => {
+              setRestoring(true);
+              setTranscript("");
               setOutputs(entry.outputs);
               setError(null);
             }}
