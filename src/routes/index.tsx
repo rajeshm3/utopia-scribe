@@ -76,7 +76,7 @@ function Index() {
             Studio Content Agent
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Paste a Granola meeting transcript. Get a LinkedIn post, follow-up email, and press angle.
+            One transcript. Three publish-ready outputs.
           </p>
         </header>
 
