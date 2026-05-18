@@ -17,7 +17,7 @@ Paste a Granola transcript from a Utopia co-build session. Hit Generate Content.
 3. Returns structured JSON with three keys: linkedin_post, followup_email, press_angle - each with a launch_stage label
 4. Displays outputs in a clean UI with copy buttons
 5. JSON output at the bottom is readable by a downstream agent without a human in the middle
-6. Saves generation history locally - operators can retrieve outputs from past sessions without regenerating
+6. Saves generation history - operators can retrieve outputs from past sessions by clicking any history entry
 
 ## Prompt used
 
