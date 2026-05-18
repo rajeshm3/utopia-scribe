@@ -177,11 +177,12 @@ function OutputCard({
 
 function JsonOutput({ outputs, loading }: { outputs: Outputs | null; loading: boolean }) {
   const [copied, setCopied] = useState(false);
-  const json = JSON.stringify(
-    outputs ?? { linkedin_post: "", followup_email: "", press_angle: "" },
-    null,
-    2,
-  );
+  const structured = {
+    linkedin_post: { content: outputs?.linkedin_post ?? "", launch_stage: "Lead" },
+    followup_email: { content: outputs?.followup_email ?? "", launch_stage: "Nurture" },
+    press_angle: { content: outputs?.press_angle ?? "", launch_stage: "Amplify" },
+  };
+  const json = JSON.stringify(structured, null, 2);
 
   const handleCopy = async () => {
     if (!outputs) return;
