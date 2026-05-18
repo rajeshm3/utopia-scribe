@@ -54,6 +54,14 @@ function Index() {
           </p>
         </header>
 
+        <div className="mb-8 -mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-xs text-foreground/80">
+          <span><span className="font-semibold text-primary">Operator:</span> Marketing &amp; Events team</span>
+          <span className="text-muted-foreground">·</span>
+          <span>Replaces manual transcript reading and content writing</span>
+          <span className="text-muted-foreground">·</span>
+          <span>Maps to Utopia LAUNCH framework</span>
+        </div>
+
         <section className="rounded-2xl border border-border bg-card p-5 shadow-lg shadow-black/20">
           <label htmlFor="transcript" className="text-sm font-medium">
             Paste Granola transcript here
