@@ -98,9 +98,9 @@ function Index() {
         </section>
 
         <section className="mt-8 grid gap-5">
-          <OutputCard title="LinkedIn Post" content={outputs?.linkedin_post ?? ""} loading={loading} />
-          <OutputCard title="Follow-up Email" content={outputs?.followup_email ?? ""} loading={loading} />
-          <OutputCard title="Press Angle" content={outputs?.press_angle ?? ""} loading={loading} />
+          <OutputCard title="LinkedIn Post" stage="Lead" content={outputs?.linkedin_post ?? ""} loading={loading} />
+          <OutputCard title="Follow-up Email" stage="Nurture" content={outputs?.followup_email ?? ""} loading={loading} />
+          <OutputCard title="Press Angle" stage="Amplify" content={outputs?.press_angle ?? ""} loading={loading} />
         </section>
 
         <section className="mt-5">
@@ -113,10 +113,12 @@ function Index() {
 
 function OutputCard({
   title,
+  stage,
   content,
   loading,
 }: {
   title: string;
+  stage: string;
   content: string;
   loading: boolean;
 }) {
@@ -162,6 +164,12 @@ function OutputCard({
         ) : (
           <span className="text-muted-foreground">Output will appear here.</span>
         )}
+      </div>
+      <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">
+        <span className="text-[10px] uppercase tracking-wider text-muted-foreground">LAUNCH Stage</span>
+        <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-medium text-primary">
+          {stage}
+        </span>
       </div>
     </article>
   );
