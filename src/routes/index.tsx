@@ -102,6 +102,10 @@ function Index() {
           <OutputCard title="Follow-up Email" content={outputs?.followup_email ?? ""} loading={loading} />
           <OutputCard title="Press Angle" content={outputs?.press_angle ?? ""} loading={loading} />
         </section>
+
+        <section className="mt-5">
+          <JsonOutput outputs={outputs} loading={loading} />
+        </section>
       </div>
     </main>
   );
