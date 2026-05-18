@@ -66,9 +66,9 @@
   /* Utopia Studio brand: neutral grayscale, white accent only */
   --background: oklch(0.18 0 0);        /* #171717 */
   --foreground: oklch(0.985 0 0);       /* #FAFAFA */
-  --card: oklch(0.22 0 0);              /* #1F1F1F */
+  --card: oklch(0.205 0 0);             /* #1C1C1C */
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.22 0 0);
+  --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(1 0 0);              /* #FFFFFF */
   --primary-foreground: oklch(0.18 0 0);
